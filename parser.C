@@ -49,17 +49,12 @@ AST* Parser::RestExpr(AST* e) {
 }
 
 AST* Parser::Term() {
-   //write your Term() code here. This code is just temporary
-   //so you can try the calculator out before finishing it.
-   //Token* t = scan->getToken();
-   //cout << "Term not implemented" << endl;
-   //throw ParseError;
+   
   return RestTerm(Storable());
 }
 
 AST* Parser::RestTerm(AST* e) {
-  //cout << "RestTerm not implemented" << endl;
-   //throw ParseError;
+
    Token* t = scan->getToken();
 
    if (t->getType() == times) {
