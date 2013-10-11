@@ -3,42 +3,46 @@
 #include <string>
 #include "calcex.h"
 #include "calculator.h"
+#include "traductor.h"
+#define EOF ""
 
 using namespace std;
 
 Calculator* calc;
-
+Traductor* trad;
 int main(int argc, char* argv[]) {
    string line;
    string arg;
-   string EOF = "";
+
+   trad = new Traductor();
+   //delete trad;
    if(argc > 1){
      arg = argv[1];
-   }
+   } 
+     
    if (arg == "-i"){
-     try {
-       cout << "> ";
-       while(getline(cin, line)){
-	 //cout << "> " ;
+     cout << "> ";
+     while(getline(cin, line)){
+       try{
 	 if(line == EOF)return 0;
 	 calc = new Calculator();
-	 int result = calc->eval(line);
+	 int result = calc->eval(line, true);
 	 cout << "= " << result << endl;
 	 cout << "> ";
 	 delete calc;
+       }catch(Exception e){
+	 cout << "> ";
        }
-       return 0;
-     }catch(Exception e){
-       cout << "Program aborted due to exception!" << endl;
+
      }
    }else{
    try {
-
+     
       cout << "Please enter a calculator expression: ";
 
       getline(cin, line);
-      // line + '\n';
-
+      
+      trad->cabecera();
       calc = new Calculator();
 
       int result = calc->eval(line);
@@ -46,11 +50,14 @@ int main(int argc, char* argv[]) {
       cout << "The result is " << result << endl;
 
       delete calc;
+      
 
    }
    catch(Exception ex) {
       cout << "Program Aborted due to exception!" << endl;
    }
    }
+   trad->final();
+   delete trad;
 }
    

@@ -10,7 +10,7 @@ class Calculator {
  public:
    Calculator();
 
-   int eval(string expr);
+   int eval(string expr, bool flag = false);
    void store(int val);
    int recall();
 

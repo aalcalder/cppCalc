@@ -6,7 +6,7 @@
 
 class Parser {
  public:
-   Parser(istream* in);
+  Parser(istream* in, bool flag = false);
    ~Parser();
 
    AST* parse();
@@ -21,6 +21,7 @@ class Parser {
    AST* Factor();
 
    Scanner* scan;
+   bool flag;
 };
 
 

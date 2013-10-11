@@ -10,9 +10,9 @@ Calculator::Calculator():
    memory(0)
 {}
 
-int Calculator::eval(string expr) {
+int Calculator::eval(string expr, bool flag) {
 
-   Parser* parser = new Parser(new istringstream(expr));
+  Parser* parser = new Parser(new istringstream(expr), flag);
    
    AST* tree = parser->parse();
    

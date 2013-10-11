@@ -3,8 +3,9 @@
 #include <string>
 #include <sstream>
 
-Parser::Parser(istream* in) {
+Parser::Parser(istream* in, bool flag) {
    scan = new Scanner(in);
+   this->flag = flag;
 }
 
 Parser::~Parser() {
@@ -20,9 +21,12 @@ AST* Parser::parse() {
 AST* Parser::Prog() {
    AST* result = Expr();
    Token* t = scan->getToken();
-
+   
    if (t->getType() != eof) {
-      cout << "Syntax Error: Expected EOF, found token at column " << t->getCol() << endl;
+     if(flag){
+       cout << "* ";
+     } 
+     cout << "Syntax Error: Expected EOF, found token at column " << t->getCol() << endl;
       throw ParseError;
    }
 
@@ -49,12 +53,17 @@ AST* Parser::RestExpr(AST* e) {
 }
 
 AST* Parser::Term() {
-   
+   //write your Term() code here. This code is just temporary
+   //so you can try the calculator out before finishing it.
+   //Token* t = scan->getToken();
+   //cout << "Term not implemented" << endl;
+   //throw ParseError;
   return RestTerm(Storable());
 }
 
 AST* Parser::RestTerm(AST* e) {
-
+  //cout << "RestTerm not implemented" << endl;
+   //throw ParseError;
    Token* t = scan->getToken();
 
    if (t->getType() == times) {
@@ -78,6 +87,9 @@ AST* Parser::Storable() {
       ret = new StoreNode(factor);
     }
     else {
+      if(flag){
+       cout << "* ";
+     } 
       cout << "Syntax Error: Expected S or s, found token at column " << t->getCol() << endl;
       throw ParseError;
     }
@@ -102,6 +114,9 @@ AST* Parser::Factor() {
       ret = new RecallNode();
     }
     else {
+      if(flag){
+       cout << "* ";
+     } 
       cout << "Syntax Error: Expected R or r, found token at column " << t->getCol() << endl;
       throw ParseError;
     }
@@ -110,9 +125,19 @@ AST* Parser::Factor() {
     ret = Expr();
     t = scan->getToken();
     if (t->getType() != rparen){
+      if(flag){
+       cout << "* ";
+     } 
       cout << "Syntax Error: Expected ), found token at column " << t->getCol() << endl;
+      throw ParseError;
     }
+    return ret;
   }
-  return ret; 
+  //return ret;
+  if(flag){
+       cout << "* ";
+     }
+  cout << "Expected number, R or r, or ( " << endl;
+  throw ParseError;
 }
    
