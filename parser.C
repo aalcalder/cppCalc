@@ -133,7 +133,7 @@ AST* Parser::Factor() {
     }
     return ret;
   }
-  //return ret;
+  return ret;
   if(flag){
        cout << "* ";
      }
